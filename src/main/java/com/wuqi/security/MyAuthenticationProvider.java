@@ -16,14 +16,19 @@ public class MyAuthenticationProvider extends AbstractUserDetailsAuthenticationP
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+		//输入的密码
 		String inputPassword = (String)authentication.getCredentials();
+		//数据库中实际密码
 		String actualPassword = userDetails.getPassword();
 		
 		if(!actualPassword.equals(inputPassword)){
 			throw new BadCredentialsException("密码错误！");
 		}
 	}
-
+	
+	/**
+	 * 获取用户的详细信息
+	 */
 	@Override
 	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
